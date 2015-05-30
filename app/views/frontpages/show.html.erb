@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <%= @frontpage.title %> 
+  <%= @frontpage.upvotes %>
+</p>
+
+<p>
+  <%= @frontpage.desc %>
+</p>
+
+<%= link_to 'Edit', edit_frontpage_path(@frontpage) %> |
+<%= link_to 'Back', frontpages_path %>
+
+<% @frontpage.comments.each do |comment| %>
+  <p>
+    <%= comment.body %>
+    <% if !comment.user_id.nil? %>
+      <%= User.find(comment.user_id).email %>
+    <% end %>
+  </p>  
+<% end %>
+
+<%= form_for [@frontpage,@frontpage.comments.new] do |f| %>
+  <%= f.text_field :body %>
+  <%= f.submit "Create Comment" %>
+<% end %>
