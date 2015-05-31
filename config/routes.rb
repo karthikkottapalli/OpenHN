@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   resources :frontpages do 
     resources :comments
   end

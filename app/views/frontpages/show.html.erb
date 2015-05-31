@@ -1,27 +1,24 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <%= @frontpage.title %> 
-  <%= @frontpage.upvotes %>
-</p>
-
-<p>
-  <%= @frontpage.desc %>
-</p>
-
-<%= link_to 'Edit', edit_frontpage_path(@frontpage) %> |
-<%= link_to 'Back', frontpages_path %>
-
-<% @frontpage.comments.each do |comment| %>
+<div class="container">
+  <p id="notice"><%= notice %></p>
+  ▲ 
+    <%= @frontpage.title %> 
+    <div class="subtext">
+        <span class="score" id="score_9632604"><%= @frontpage.upvotes %></span> by <a href="user?id=slg">slg</a> <a href="item?id=9632604">14 hours ago</a> | <a href="item?id=9632604">160 comments</a></div>
   <p>
-    <%= comment.body %>
-    <% if !comment.user_id.nil? %>
-      <%= User.find(comment.user_id).email %>
-    <% end %>
-  </p>  
-<% end %>
+    <%= @frontpage.desc %>
+  </p>
 
-<%= form_for [@frontpage,@frontpage.comments.new] do |f| %>
-  <%= f.text_field :body %>
-  <%= f.submit "Create Comment" %>
-<% end %>
+  <%= form_for [@frontpage,@frontpage.comments.new] do |f| %>
+    <%= f.text_area :body, :rows => 6, :cols => 60 %><br>
+    <%= f.submit "Create Comment" %>
+  <% end %>
+
+  <% @frontpage.comments.each do |comment| %>
+    <p>
+      <%= comment.body %>
+      <% if !comment.user_id.nil? %>
+        <%= User.find(comment.user_id).email %>
+      <% end %>
+    </p>  
+  <% end %>
+</div>

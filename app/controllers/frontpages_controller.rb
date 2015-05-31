@@ -1,4 +1,5 @@
 class FrontpagesController < ApplicationController
+  before_filter :authenticate_user! 
   before_action :set_frontpage, only: [:show, :edit, :update, :destroy]
 
   # GET /frontpages
